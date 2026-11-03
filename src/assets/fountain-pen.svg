@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 640" width="100" height="640">
+  <defs>
+    <linearGradient id="body" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#0d0d10"/>
+      <stop offset="0.28" stop-color="#34343d"/>
+      <stop offset="0.45" stop-color="#1b1b21"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="grip" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#16161a"/>
+      <stop offset="0.35" stop-color="#3b3b45"/>
+      <stop offset="1" stop-color="#0a0a0c"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#a77d3e"/>
+      <stop offset="0.35" stop-color="#f3dcae"/>
+      <stop offset="0.6" stop-color="#d4a85f"/>
+      <stop offset="1" stop-color="#8d6527"/>
+    </linearGradient>
+    <linearGradient id="nib" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#b78a45"/>
+      <stop offset="0.4" stop-color="#f6e3b8"/>
+      <stop offset="0.7" stop-color="#d9b06a"/>
+      <stop offset="1" stop-color="#9a7230"/>
+    </linearGradient>
+  </defs>
+  <!-- end cap -->
+  <rect x="29" y="8" width="42" height="64" rx="19" fill="url(#body)"/>
+  <rect x="29" y="52" width="42" height="9" fill="url(#gold)"/>
+  <!-- barrel -->
+  <rect x="29" y="58" width="42" height="330" rx="3" fill="url(#body)"/>
+  <rect x="28" y="170" width="44" height="12" rx="3" fill="url(#gold)"/>
+  <rect x="28" y="186" width="44" height="4" rx="2" fill="url(#gold)"/>
+  <rect x="28" y="364" width="44" height="10" rx="3" fill="url(#gold)"/>
+  <!-- barrel highlight -->
+  <rect x="38" y="70" width="4" height="290" rx="2" fill="#ffffff" opacity="0.16"/>
+  <!-- tapered grip section -->
+  <path d="M29 372 L71 372 C71 420 66 452 60 486 L40 486 C34 452 29 420 29 372 Z" fill="url(#grip)"/>
+  <path d="M39 384 C39 424 41 452 43 480" stroke="#ffffff" stroke-opacity="0.14" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- collar -->
+  <rect x="37" y="484" width="26" height="14" rx="3" fill="url(#gold)"/>
+  <!-- nib -->
+  <path d="M38 498 L62 498 C67 524 60 548 55 572 C52 592 51 604 50 616 C49 604 48 592 45 572 C40 548 33 524 38 498 Z" fill="url(#nib)"/>
+  <path d="M50 556 L50 616" stroke="#2a1d08" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="50" cy="552" r="4.6" fill="#2a1d08"/>
+  <circle cx="50" cy="552" r="2.1" fill="#f6e3b8" opacity="0.5"/>
+  <path d="M42 506 C39 524 43 544 46 560" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>
