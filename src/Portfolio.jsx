@@ -6,6 +6,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import portrait from "./assets/gaurav.png";
 import aboutportrait from "./assets/about.png";
 import penImg from "./assets/fountain-pen.svg";
+import logo from "./assets/Logo.svg";
 import {
   Menu,
   X,
@@ -423,7 +424,7 @@ function Navbar({ active }) {
           }}
           className="group flex items-center gap-3 font-display text-base font-medium"
         >
-          <img src="/src/assets/Logo.svg" alt="Logo" className="h-9 w-9" />
+          <img src={logo} alt="Logo" className="h-9 w-9" />
           <span className="hidden sm:inline hover:text-[var(--acc)] transition:color duration-[0.3s]">Gaurav Pulami</span>
         </a>
 
@@ -1855,7 +1856,7 @@ function ArcStage({ filter, setFilter, visible, onOpen }) {
           scale: fit * lerp(1, 0.92, u) * (0.35 + 0.65 * a * ei) * (0.6 + 0.4 * c.vis) * (1 + 0.1 * depth * (1 - u)),
           autoAlpha: a * ei * c.vis,
           zIndex: u < 0.55 ? (depth > 0 ? 40 : 10) : 20 + Math.round(c.slot),
-          pointerEvents: u > 0.97 && c.vis > 0.5 ? "auto" : "none",
+          pointerEvents: a * ei * c.vis > 0.5 ? "auto" : "none", // clickable as soon as the card has appeared
         });
       });
 
