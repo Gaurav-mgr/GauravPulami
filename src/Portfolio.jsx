@@ -55,7 +55,7 @@ const BTN_SECONDARY =
 
 const PROFILE = {
   name: "Gaurav Pulami",
-  role: "Creative Developer",
+  role: "Creative Developer & Designer",
   github: "https://github.com/Gaurav-mgr",
   // TODO: replace with your real LinkedIn URL
   linkedin: "https://www.linkedin.com/in/gauravpulami",
@@ -197,6 +197,28 @@ function pickAsset(list, wanted, title) {
     list.find((a) => t.length > 2 && slug(a.stem).length > 2 && (slug(a.stem).includes(t) || t.includes(slug(a.stem))));
   return hit ? hit.url : null;
 }
+
+/* ------------------------------------------------------------------ */
+/*  ABOUT (phone only) - the watch, headphones, sunglasses and          */
+/*  paintbrush around the About text.                                   */
+/*  Put your own pictures (transparent PNG / WebP / SVG) in             */
+/*      src/assets/about-items/                                         */
+/*  and set the file name (without extension) for each item here.       */
+/*  Until the file exists, a dashed placeholder box is shown instead.   */
+/* ------------------------------------------------------------------ */
+const ABOUT_ITEM_FILES = {
+  watch: "watch", //        src/assets/about-items/watch.png
+  headphones: "headphones", // src/assets/about-items/headphones.png
+  sunglasses: "sunglasses", // src/assets/about-items/sunglasses.png
+};
+const ABOUT_ITEM_URLS = toAssets(
+  import.meta.glob("./assets/about-items/*.{png,jpg,jpeg,webp,avif,gif,svg}", { eager: true, query: "?url", import: "default" })
+);
+const aboutItemUrl = (name) => {
+  const want = slug(ABOUT_ITEM_FILES[name] || name);
+  return ABOUT_ITEM_URLS.find((a) => slug(a.stem) === want)?.url ?? null;
+};
+
 
 PROJECTS.forEach((p) => {
   p.logoUrl = pickAsset(LOGOS, p.logo, p.title);
@@ -512,7 +534,7 @@ function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden bg-[var(--bg)] pt-16 text-[color:var(--fg)]">
-      <h1 className="sr-only">Gaurav Pulami, Creative Developer</h1>
+      <h1 className="sr-only">Gaurav Pulami, Creative Developer & Designer</h1>
 
       <div
         aria-hidden="true"
@@ -528,7 +550,7 @@ function Hero() {
           <span className="leading-relaxed">
             Creative Developer
             <br />
-            &amp; BCA Student
+            &amp; Designer
           </span>
           <span className="h-px flex-1 bg-[var(--tint)]" />
           <span>{year}</span>
@@ -590,13 +612,13 @@ function Hero() {
         {/* Copy blocks sit over the bottom of the stage on large screens */}
         <div className="relative z-20 grid gap-10 pb-12 pt-2 lg:-mt-52 lg:grid-cols-2 lg:items-end">
           <div className="max-w-sm">
-            <p data-hero-fade className="font-display text-4xl font-medium leading-[1.02] tracking-[-0.035em] sm:text-5xl">
-              Creative
+            <p data-hero-fade className="font-display leading-[1.02] ">
+              <span className="text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Creative</span>
               <br />
-              developer
+              <span className="text-3xl font-medium tracking-[-0.035em] sm:text-4xl">Developer & Designer</span>
             </p>
             <p data-hero-fade className="mt-5 text-sm leading-relaxed text-[color:var(--mut)]">
-              BCA student and creative developer building full-stack applications with clean code, solid docs, and clean UI design.
+              BCA student and creative developer & designer building full-stack applications with clean code, solid docs, and clean UI design while presenting them beautifully.
             </p>
           </div>
 
@@ -905,6 +927,41 @@ const Mark = ({ children }) => (
   </span>
 );
 
+const ABOUT_ITEMS = [
+  // pos = centre of the item, measured from the top-left of its anchor (head = the "01 / About" + title block, foot = the end of the paragraphs)
+  // w = width in px, tilt = degrees (headphones and paintbrush sit slanted like a box)
+  { name: "watch", anchor: "head", pos: { left: "12%", top: -66 }, w: 66, ratio: "1 / 1", tilt: 0, d: 5.5 },
+  { name: "headphones", anchor: "head", pos: { left: "74%", top: 30 }, w: 106, ratio: "1 / 1", tilt: 14, d: 6.5 },
+  { name: "sunglasses", anchor: "foot", pos: { left: "46%", top: 40 }, w: 90, ratio: "1 / 1", tilt: -38, d: 6 },
+];
+
+function AboutItem({ it, i, style }) {
+  const url = aboutItemUrl(it.name);
+  return (
+    <div
+      className="gp-bob pointer-events-none absolute"
+      style={{ ...style, width: it.w, translate: "-50% -50%", rotate: `${it.tilt}deg`, "--d": `${it.d}s`, "--dl": `${-i * 1.3}s` }}
+    >
+      {url ? (
+        <img src={url} alt="" draggable="false" className="block h-auto w-full select-none" />
+      ) : (
+        <div
+          className="grid w-full place-items-center rounded-xl border-2 border-dashed border-[var(--acc)] bg-[var(--acc)]/10 font-mono text-[10px] uppercase tracking-wider text-[color:var(--acc)]"
+          style={{ aspectRatio: it.ratio }}
+        >
+          {it.name}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const AboutItemGroup = ({ anchor }) => (
+  <div aria-hidden="true" className={`pointer-events-none absolute left-0 w-full sm:hidden ${anchor === "foot" ? "top-full h-0" : "top-0 h-full"}`}>
+    {ABOUT_ITEMS.map((it, i) => (it.anchor === anchor ? <AboutItem key={it.name} it={it} i={i} style={it.pos} /> : null))}
+  </div>
+);
+
 function About({ panel = false }) {
   const aboutRef = useRef(null);
   useLayoutEffect(() => {
@@ -933,28 +990,27 @@ function About({ panel = false }) {
     <section
       id="about"
       ref={aboutRef}
-      className={panel ? "flex h-full w-1/2 shrink-0 items-center" : "scroll-mt-16 overflow-x-clip py-24 sm:py-32"}
+      className={panel ? "flex h-full w-1/2 shrink-0 items-center max-sm:relative" : "scroll-mt-16 overflow-x-clip py-24 sm:py-32"}
     >
       <div {...(panel ? { "data-fit": "" } : {})} className={panel ? "contents max-lg:flex max-lg:w-full max-lg:flex-col max-lg:items-center" : "contents"}>
         <div className={`mx-auto flex w-full max-w-6xl px-5 sm:px-8 ${panel ? "justify-between" : "flex-col"}`} style={panel ? PANEL_SCALE : undefined}>
           <div className="z-20 max-w-xl lg:col-span-1 ">
-            <SectionHeading eyebrow="01 / About" title="Who am I?" compact={panel} />
-            <div className="gap-12">
+            <div className="relative">
+              <SectionHeading eyebrow="01 / About" title="Who am I?" compact={panel} />
+              {panel && <AboutItemGroup anchor="head" />}
+            </div>
+            <div className="relative gap-12">
               <div className={`${panel ? "space-y-4 text-base" : "space-y-6 text-lg"} leading-relaxed text-[color:var(--mut)]`}>
                 <p data-reveal>
-                  I'm a third-year <Mark>BCA student</Mark> who enjoys turning requirements into working software: writing clean logic, testing it locally,
-                  handling edge cases, and keeping documentation tidy. My projects span web, mobile, and desktop environments using <Mark>React, C#, Java, and PHP. </Mark>
+                  I am a <Mark>third-year BCA student</Mark> who genuinely thrives on diving into new challenges and exploring concepts far beyond the standard curriculum. Over time, I have built a strong technical foundation spanning <strong className="text-[var(--fg)] underline">Java, C#, PHP,</strong> and modern full-stack frameworks like <strong className="text-[var(--fg)] underline">React, Laravel, and .NET</strong>, paired with a sharp eye for UI/UX design using tools like <strong className="text-[var(--fg)] underline">Figma and the Adobe suite.</strong>
                 </p>
+
                 <p data-reveal>
-                  At CreativeLaya, I’ve contributed to technical writing, asset creation, and layout design. Clear code comments, setup instructions,
-                  and structured progress updates come naturally to me because I believe maintainability is just as important as writing the initial code.
-                </p>
-                <p data-reveal>
-                  I work well under supervision or in collaborative team setups: using version control properly, tracking issues early, treating reviewer
-                  feedback as a tool for growth, and prioritizing security and validation.
+                  I am deeply enthusiastic about learning cutting-edge technologies and turning them into practical, real-world solutions. My ultimate goal is to become a versatile full-stack developer and designer who crafts digital experiences that are not only robust and functional but also seamless and visually striking.
                 </p>
               </div>
 
+              {panel && <AboutItemGroup anchor="foot" />}
               {/* <div data-stagger className="grid grid-cols-2 gap-5">
             {highlights.map(({ icon: Icon, label, text, bg, rot }) => (
               <div
@@ -1593,7 +1649,8 @@ function AboutSkills() {
         if (!phone) return;
         el.style.flex = "none";
         // Lay the panel out at (screen width / k) wide, so scaling it by k fills the width; take the largest k whose height fits
-        const avail = stage.offsetHeight - 76;
+        // leave room above/below for the About items (watch, headphones, paintbrush) on phones
+        const avail = stage.offsetHeight - 76 - (stage.clientWidth < 640 && el.querySelector("[data-reveal]") ? 190 : 0);
         let k = 1;
         for (; k > 0.45; k -= 0.025) {
           el.style.width = `${stage.clientWidth / k}px`;
