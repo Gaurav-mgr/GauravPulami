@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import portrait from "./assets/gaurav.png";
-import aboutportrait from "./assets/about.png";
+import aboutportrait from "./assets/colorbgabout.png";
 import penImg from "./assets/fountain-pen.svg";
 import logo from "./assets/Logo.svg";
 import {
@@ -383,7 +383,7 @@ function SectionHeading({ eyebrow, title, children, dark = false, hs = false, co
       </p>
       <h2
         {...split}
-        className={`font-display text-4xl font-medium leading-[1.04] tracking-[-0.035em] text-[color:var(--fg)] ${compact ? "sm:text-5xl" : "sm:text-6xl"
+        className={`font-display text-4xl font-medium leading-[1.04] tracking-[-0.035em] text-[color:var(--acc)] ${compact ? "sm:text-5xl" : "sm:text-6xl"
           }`}
       >
         <Words parts={[title]} />
@@ -828,7 +828,7 @@ function TechRings() {
       aria-hidden="true"
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-0 -z-10 h-full w-full overflow-visible text-[color:var(--fg)]"
+      className="pointer-events-none absolute inset-0 -z-10 h-full w-full overflow-visible text-[var(--fg)]"
     >
       {RINGS.radii.map((r, k) => (
         <path
@@ -895,37 +895,37 @@ function TechOrbit() {
 }
 
 // Hand-drawn circle around a word: the pen loop draws itself as the page scrolls from the hero to About
-const Mark = ({ children }) => (
-  <span className="relative inline-block font-medium text-[color:var(--fg)]">
-    {children}
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 100 40"
-      preserveAspectRatio="none"
-      style={{
-        position: 'absolute',
-        top: '-6px',       // Adjust this to move it up/down
-        left: '-10px',     // Adjust this to move it left/right
-        width: 'calc(100% + 20px)',   // Adjust width expansion
-        height: 'calc(100% + 12px)',  // Adjust height expansion
-        overflow: 'visible',
-        pointerEvents: 'none',
-      }}
-    >
-      <path
-        data-mark-path
-        pathLength="1"
-        d="M9 7C28 -1 78 -1 93 11C103 23 78 38 48 38C18 38 -3 29 4 15C9 6 40 1 74 3"
-        fill="none"
-        stroke="var(--acc)"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  </span>
-);
+// const Mark = ({ children }) => (
+//   <span className="relative inline-block font-medium text-[#FFFFFF]">
+//     {children}
+//     <svg
+//       aria-hidden="true"
+//       viewBox="0 0 100 40"
+//       preserveAspectRatio="none"
+//       style={{
+//         position: 'absolute',
+//         top: '-6px',       // Adjust this to move it up/down
+//         left: '-10px',     // Adjust this to move it left/right
+//         width: 'calc(100% + 20px)',   // Adjust width expansion
+//         height: 'calc(100% + 12px)',  // Adjust height expansion
+//         overflow: 'visible',
+//         pointerEvents: 'none',
+//       }}
+//     >
+//       <path
+//         data-mark-path
+//         pathLength="1"
+//         d="M9 7C28 -1 78 -1 93 11C103 23 78 38 48 38C18 38 -3 29 4 15C9 6 40 1 74 3"
+//         fill="none"
+//         stroke="var(--acc)"
+//         strokeWidth="2.2"
+//         strokeLinecap="round"
+//         strokeLinejoin="round"
+//         vectorEffect="non-scaling-stroke"
+//       />
+//     </svg>
+//   </span>
+// );
 
 const ABOUT_ITEMS = [
   // pos = centre of the item, measured from the top-left of its anchor (head = the "01 / About" + title block, foot = the end of the paragraphs)
@@ -979,12 +979,12 @@ function About({ panel = false }) {
     return () => ctx.revert();
   }, []);
 
-  const highlights = [
-    { icon: Terminal, label: "Programming", text: "Java, C#, JavaScript, PHP", bg: "bg-[var(--acc)]", rot: "" },
-    { icon: Check, label: "Testing & debugging", text: "Unit tests, local checks", bg: "bg-[var(--bg)]", rot: "" },
-    { icon: Cpu, label: "Git & APIs", text: "Branches, issues, API basics", bg: "bg-[var(--bg)]", rot: "" },
-    { icon: Layers, label: "UI & Design", text: "UX friendly, Creative, Modern", bg: "bg-[var(--acc)]", rot: "" },
-  ];
+  // const highlights = [
+  //   { icon: Terminal, label: "Programming", text: "Java, C#, JavaScript, PHP", bg: "bg-[var(--acc)]", rot: "" },
+  //   { icon: Check, label: "Testing & debugging", text: "Unit tests, local checks", bg: "bg-[var(--bg)]", rot: "" },
+  //   { icon: Cpu, label: "Git & APIs", text: "Branches, issues, API basics", bg: "bg-[var(--bg)]", rot: "" },
+  //   { icon: Layers, label: "UI & Design", text: "UX friendly, Creative, Modern", bg: "bg-[var(--acc)]", rot: "" },
+  // ];
 
   return (
     <section
@@ -992,21 +992,22 @@ function About({ panel = false }) {
       ref={aboutRef}
       className={panel ? "flex h-full w-1/2 shrink-0 items-center max-sm:relative" : "scroll-mt-16 overflow-x-clip py-24 sm:py-32"}
     >
+      {/* <Fireflies /> */}
       <div {...(panel ? { "data-fit": "" } : {})} className={panel ? "contents max-lg:flex max-lg:w-full max-lg:flex-col max-lg:items-center" : "contents"}>
-        <div className={`mx-auto flex w-full max-w-6xl px-5 sm:px-8 ${panel ? "justify-between" : "flex-col"}`} style={panel ? PANEL_SCALE : undefined}>
+        <div className={`ml-[16%] flex w-full max-w-6xl px-5 sm:px-8 ${panel ? "justify-between" : "flex-col"}`} style={panel ? PANEL_SCALE : undefined}>
           <div className="z-20 max-w-xl lg:col-span-1 ">
             <div className="relative">
               <SectionHeading eyebrow="01 / About" title="Who am I?" compact={panel} />
               {panel && <AboutItemGroup anchor="head" />}
             </div>
-            <div className="relative gap-12">
-              <div className={`${panel ? "space-y-4 text-base" : "space-y-6 text-lg"} leading-relaxed text-[color:var(--mut)]`}>
+            <div className="relative gap-12 w-[90%] text-justify max-lg:gap-8">
+              <div className={`${panel ? "space-y-4 text-base" : "space-y-6 text-lg"} leading-relaxed text-[var(--fg)]`}>
                 <p data-reveal>
-                  I am a <Mark>third-year BCA student</Mark> who genuinely thrives on diving into new challenges and exploring concepts far beyond the standard curriculum. Over time, I have built a strong technical foundation spanning <strong className="text-[var(--fg)] underline">Java, C#, PHP,</strong> and modern full-stack frameworks like <strong className="text-[var(--fg)] underline">React, Laravel, and .NET</strong>, paired with a sharp eye for UI/UX design using tools like <strong className="text-[var(--fg)] underline">Figma and the Adobe suite.</strong>
+                  I am a third-year BCA student who genuinely loves diving into new challenges and exploring concepts that I've yet to understand. That very curiosity has driven me to build a strong technical foundation spanning <strong className="text-[var(--fg)] underline">Java, C#, PHP,</strong> and modern full-stack frameworks like <strong className="text-[var(--fg)] underline">React, Laravel, and .NET</strong>, paired with a sharp eye for UI/UX design using tools like <strong className="text-[var(--fg)] underline">Figma and the Adobe suite.</strong>
                 </p>
 
                 <p data-reveal>
-                  I am deeply enthusiastic about learning cutting-edge technologies and turning them into practical, real-world solutions. My ultimate goal is to become a versatile full-stack developer and designer who crafts digital experiences that are not only robust and functional but also seamless and visually striking.
+                  When I'm not attached to the computer being a geek, I enjoy sketching, cycling, gaming, traveling, and exploring new tech trends. These hobbies not only keep me active but also fuel my creativity and problem-solving skills, which I bring into my development work.
                 </p>
               </div>
 
@@ -1257,7 +1258,7 @@ function Skills({ panel = false }) {
           : "gp-dark relative scroll-mt-16 overflow-hidden bg-[var(--bg)] py-24 sm:py-32"
       }
     >
-      <Fireflies />
+      {/* <Fireflies /> */}
       <div {...(panel ? { "data-fit": "" } : {})} className="mx-auto w-full max-w-6xl px-5 sm:px-8" style={panel ? PANEL_SCALE : undefined}>
         <SectionHeading eyebrow="02 / Skills" title="What do I bring to the table?" dark hs={panel} compact={panel}>
           Programming, Git, unit testing, debugging, API basics and documentation: the everyday skills of a Creative Developer.
@@ -1678,7 +1679,7 @@ function AboutSkills() {
       if (portrait) {
         gsap.fromTo(
           portrait,
-          { xPercent: 30 },
+          { xPercent: 25 },
           {
             xPercent: () => (portrait.offsetWidth ? -((portrait.offsetLeft + portrait.offsetWidth + 4) / portrait.offsetWidth) : 0),
             ease: "none",
@@ -1749,11 +1750,21 @@ function AboutSkills() {
         className="sticky top-16 h-[calc(100svh-4rem)] overflow-hidden"
         style={{
           // Gradient backdrop: solid ice at the start, solid aubergine at the end, blending as you scroll sideways
-          backgroundImage: "linear-gradient(90deg, #DDE3EB 0%, #DDE3EB 33.3%, #3A0F34 66.6%, #3A0F34 100%)",
-          backgroundSize: "300% 100%",
-          backgroundPosition: "0% 0%",
+          backgroundColor: "#DDE3EB",
+          backgroundImage: "linear-gradient(to right, var(--line) 1px, transparent 1px)",
+          backgroundSize: "12.5% 100%",
         }}
       >
+
+        {/* <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-10"
+          style={{
+            backgroundImage: "linear-gradient(to right, var(--line) 1px, transparent 1px)",
+            backgroundSize: "12.5% 100%",
+          }}
+        /> */}
+
         <div ref={trackRef} className="flex h-full w-[200%] will-change-transform">
           <About panel />
           <Skills panel />
@@ -2472,7 +2483,7 @@ function Experience() {
             const Icon = item.kind === "work" ? Briefcase : GraduationCap;
             return (
               <div key={item.title} data-tl-item className="relative mb-14 last:mb-0">
-                <span className="absolute -left-[3.75rem] top-0 grid h-10 w-10 place-items-center rounded-full border border-[var(--line2)] bg-[var(--bg)] text-[color:var(--acc-t)] sm:-left-[4.75rem]">
+                <span className="absolute -left-[3.75rem] top-0 grid h-10 w-10 place-items-center rounded-full border border-[var(--line2)] bg-[var(--bg)] text-[color:var(--acc)] sm:-left-[4.75rem]">
                   <Icon className="h-5 w-5" />
                 </span>
                 <div className="rounded-2xl border border-[var(--line)] bg-[var(--surf)] p-6 sm:p-8">
@@ -2480,13 +2491,13 @@ function Experience() {
                     <h3 className="font-display text-xl font-medium sm:text-2xl">{item.title}</h3>
                     {item.period && <span className="font-mono text-xs">{item.period}</span>}
                   </div>
-                  <p className="mt-1 inline-block rounded-full border border-[var(--line2)] px-3 py-1 font-mono text-xs text-[color:var(--acc-t)]">
+                  <p className="mt-1 inline-block rounded-xl border-b border-[var(--line2)] px-3 py-1 font-mono text-xs text-[color:var(--acc)]">
                     {item.org}
                   </p>
                   <ul className="mt-5 space-y-3 text-sm text-[color:var(--mut)]">
                     {item.points.map((pt) => (
                       <li key={pt} className="flex gap-3">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--acc-t)]" />
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--acc)]" />
                         <span>{pt}</span>
                       </li>
                     ))}
